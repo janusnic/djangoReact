@@ -1,0 +1,66 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    {# <meta name="keywords" content="{% block meta_keywords %}{% meta_keywords %}{% endblock %}"> #}
+    <meta name="description" content="{% block meta_description %}{% endblock meta_description %}">
+    <meta name="robots" content="{% block meta_robots %}{% endblock meta_robots %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <title>{% block title %}{% endblock title %}</title>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
+
+    {% block extra_styles %}{% endblock %}
+    {% block head_js %}{% endblock %}
+
+    <link rel="shortcut icon" href="/static/img/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/img/homescreen.png">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        var csrfToken = $.cookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+          // HTTP Methods that don't require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+          beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader('X-CSRFToken', csrfToken);
+            }
+          }
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+  </head>
+
+  <body class="{% block body_class %}{% endblock body_class %}">
+    {% block primary_content %}
+      Hey :)
+    {% endblock primary_content %}
+    {% block end_js %}{% endblock %}
+
+    <div id="content"></div>
+
+    <script type="text/jsx;harmony=true" src="{% static 'example.js' %}"></script>
+  </body>
+
+</html>
