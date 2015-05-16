@@ -24,6 +24,7 @@ $ pip install -r requirements/local.txt
 $ vim project_name/settings/local.py // Edit database settings.
 $ chmod +x manage.py
 $ ./manage.py migrate
+$ ./manage.py loadtestdata comments.Comment:23
 ```
 
 If you want, you can also add a pre-commit flake8 hook to ensure that commit respects it.
